@@ -13,13 +13,7 @@ export class UserController {
 
     @Post()
     async create(@Body() userData: Partial<User>){
-        const user = await this.userService.create(userData)
-
-        return {
-            statusCode: HttpStatus.CREATED,
-            message: 'Usuário criado com sucesso',
-        };
-
+        return await this.userService.create(userData)
     }
 
 
