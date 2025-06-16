@@ -23,9 +23,14 @@ export class UserService {
 
 
     
-    async findAllUser(): Promise<UserResponseDto[]> {
+    async findAllUser(role?:string): Promise<UserResponseDto[]> {
+
+        const where = role ? { role } : {};
+
+
         const users = await this.userRepository.find({
             select: ['id', 'name', 'email', 'role', 'lastLogin'],
+            where,
         });
 
         return users.map(user => ({
@@ -38,8 +43,9 @@ export class UserService {
                 hour: '2-digit',
                 minute: '2-digit',
                 })}`
-            : "Não efetuou o primeiro login",
+            : 'Não efetuou o primeiro login',
         }));
+
     }
 
 
