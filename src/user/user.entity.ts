@@ -23,6 +23,9 @@ export class User{
     @CreateDateColumn()
     createdAt:Date;
 
+    @Column({ type: 'datetime', nullable: true })
+    lastLogin: Date | null;
+
 
     @UpdateDateColumn()
     updatedAt:Date

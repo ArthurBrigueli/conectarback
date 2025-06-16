@@ -3,12 +3,17 @@ import { JwtService } from "@nestjs/jwt";
 import { UserService } from "src/user/user.service";
 import * as bcrypt from 'bcrypt'
 import { error } from "console";
+import { User } from "src/user/user.entity";
+import { Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class AuthService{
     constructor(
         private userService: UserService,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        @InjectRepository(User)
+        private userRepository: Repository<User>,
     ){}
 
 
@@ -22,17 +27,22 @@ export class AuthService{
     }
 
 
-    async login(user: any){
-        const payload = {sub: user.id, email: user.email, role: user.role}
+    async login(user: any) {
+        const payload = { sub: user.id, email: user.email, role: user.role };
+
+        await this.userRepository.update(user.id, { lastLogin: new Date() });
+
         return {
             access_token: this.jwtService.sign(payload),
             user: {
-                name: user.name,
-                email: user.email,
-                role: user.role
-            }
-        }
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            },
+        };
     }
+
 
 
 
