@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { HashService } from 'src/auth/hash.service';
 import { STATUS_CODES } from 'http';
 import * as bcrypt from 'bcrypt'
+import { UserResponseDto } from 'src/DTO/user-response.dto';
 
 @Injectable()
 export class UserService {
@@ -21,10 +22,24 @@ export class UserService {
     }
 
 
-    async findAllUser(): Promise<Partial<User>[]> {
-        return this.userRepository.find({
-            select: ['id', 'name', 'email', 'role']
-        })
+    
+    async findAllUser(): Promise<UserResponseDto[]> {
+        const users = await this.userRepository.find({
+            select: ['id', 'name', 'email', 'role', 'lastLogin'],
+        });
+
+        return users.map(user => ({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            lastLogin: user.lastLogin
+            ? `${user.lastLogin.toLocaleDateString('pt-BR')} às ${user.lastLogin.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                })}`
+            : "Não efetuou o primeiro login",
+        }));
     }
 
 

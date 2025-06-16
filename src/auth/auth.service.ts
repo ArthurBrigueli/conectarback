@@ -30,15 +30,23 @@ export class AuthService{
     async login(user: any) {
         const payload = { sub: user.id, email: user.email, role: user.role };
 
-        await this.userRepository.update(user.id, { lastLogin: new Date() });
+        const lastLogin = new Date()
+
+        await this.userRepository.update(user.id, { lastLogin });
 
         return {
             access_token: this.jwtService.sign(payload),
             user: {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                lastLogin: lastLogin
+                ? `${lastLogin.toLocaleDateString('pt-BR')} às ${lastLogin.toLocaleTimeString('pt-BR', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    })}`
+                : "Não efetuou o primeiro login",
             },
         };
     }

@@ -1,0 +1,8 @@
+
+export class UserResponseDto {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  lastLogin: string | null;
+}
