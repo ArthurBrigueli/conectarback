@@ -2,10 +2,12 @@ import { HttpCode, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
-import { HashService } from 'src/auth/hash.service';
+import { HashService } from '../auth/hash.service';
 import { STATUS_CODES } from 'http';
 import * as bcrypt from 'bcrypt'
-import { UserResponseDto } from 'src/DTO/user-response.dto';
+import { UserResponseDto } from '../DTO/user-response.dto';
+import { QueryUsersDto } from '../DTO/query-users.dto';
+import { EditUserRegulardto } from '../DTO/editUserRegular.dto';
 
 @Injectable()
 export class UserService {
@@ -23,14 +25,17 @@ export class UserService {
 
 
     
-    async findAllUser(role?:string): Promise<UserResponseDto[]> {
+    async findAllUser(query: QueryUsersDto): Promise<UserResponseDto[]> {
+        const { role, sortBy = 'name', order = 'ASC' } = query;
 
         const where = role ? { role } : {};
 
-
         const users = await this.userRepository.find({
-            select: ['id', 'name', 'email', 'role', 'lastLogin'],
+            select: ['id', 'name', 'email', 'role', 'lastLogin', 'createdAt'],
             where,
+            order: {
+            [sortBy]: order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC',
+            },
         });
 
         return users.map(user => ({
@@ -45,8 +50,8 @@ export class UserService {
                 })}`
             : 'Não efetuou o primeiro login',
         }));
-
     }
+
 
 
     async editUser(editUser: Partial<User> & { id: number }): Promise<Partial<User>> {
@@ -58,6 +63,29 @@ export class UserService {
         }
 
         const dataToUpdate: Partial<User> = { ...updateData };
+
+        if (password && password.trim() !== '') {
+
+            dataToUpdate.password = await this.hashService.hashPassword(password);
+        }
+
+        Object.assign(user, dataToUpdate);
+
+        const updatedUser = await this.userRepository.save(user);
+
+        const { password: _, ...userWithoutPassword } = updatedUser;
+        return userWithoutPassword;
+    }
+
+    async editUserRegular(editUser: Partial<EditUserRegulardto> & { id: number }): Promise<Partial<EditUserRegulardto>> {
+        const { id, password, ...updateData } = editUser;
+
+        const user = await this.userRepository.findOneBy({ id });
+        if (!user) {
+            throw new Error("Usuário não encontrado");
+        }
+
+        const dataToUpdate: Partial<EditUserRegulardto> = { ...updateData };
 
         if (password && password.trim() !== '') {
 

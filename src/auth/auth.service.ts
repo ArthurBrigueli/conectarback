@@ -1,11 +1,12 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { UserService } from "src/user/user.service";
+import { UserService } from "../user/user.service";
 import * as bcrypt from 'bcrypt'
 import { error } from "console";
-import { User } from "src/user/user.entity";
+import { User } from "../user/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import { ApiBearerAuth, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 @Injectable()
 export class AuthService{
@@ -27,6 +28,10 @@ export class AuthService{
     }
 
 
+    @ApiOperation({ summary: 'Fazer login' })
+    @ApiResponse({ status: 201, description: 'Token de acesso' })
+    @ApiResponse({ status: 400, description: 'Credenciais incorreta' })
+    @ApiBearerAuth()
     async login(user: any) {
         const payload = { sub: user.id, email: user.email, role: user.role };
 
