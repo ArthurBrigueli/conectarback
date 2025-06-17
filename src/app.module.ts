@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { AdminInitService } from './database/init-db';
+import { User } from './user/user.entity';
 
 const isTest = process.env.NODE_ENV === 'test';
 
@@ -23,9 +25,11 @@ const isTest = process.env.NODE_ENV === 'test';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([User]),
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AdminInitService],
+  
 })
 export class AppModule {}

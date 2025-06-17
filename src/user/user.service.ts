@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt'
 import { UserResponseDto } from '../DTO/user-response.dto';
 import { QueryUsersDto } from '../DTO/query-users.dto';
 import { EditUserRegulardto } from '../DTO/editUserRegular.dto';
+import { stat } from 'fs';
 
 @Injectable()
 export class UserService {
@@ -32,7 +33,7 @@ export class UserService {
 
     
     async findAllUser(query: QueryUsersDto): Promise<UserResponseDto[]> {
-        const { role, sortBy = 'name', order = 'ASC' } = query;
+        const { role, sortBy = 'name', order = 'ASC', status } = query;
 
         const where = role ? { role } : {};
 
@@ -40,23 +41,44 @@ export class UserService {
             select: ['id', 'name', 'email', 'role', 'lastLogin', 'createdAt'],
             where,
             order: {
-            [sortBy]: order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC',
+                [sortBy]: order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC',
             },
         });
 
-        return users.map(user => ({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            lastLogin: user.lastLogin
-            ? `${user.lastLogin.toLocaleDateString('pt-BR')} às ${user.lastLogin.toLocaleTimeString('pt-BR', {
-                hour: '2-digit',
-                minute: '2-digit',
+        const now = new Date();
+
+        const mappedUsers = users.map(user => {
+            const lastLoginFormatted = user.lastLogin
+                ? `${user.lastLogin.toLocaleDateString('pt-BR')} às ${user.lastLogin.toLocaleTimeString('pt-BR', {
+                    hour: '2-digit',
+                    minute: '2-digit',
                 })}`
-            : 'Não efetuou o primeiro login',
-        }));
+                : 'Não efetuou o primeiro login';
+
+            let isActive = false;
+
+            if (user.lastLogin instanceof Date && !isNaN(user.lastLogin.getTime())) {
+                const daysSinceLastLogin = (now.getTime() - user.lastLogin.getTime()) / (1000 * 60 * 60 * 24);
+                isActive = daysSinceLastLogin <= 30;
+            }
+
+            return {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                lastLogin: lastLoginFormatted,
+                isActive,
+            };
+        });
+
+        const filteredUsers = status
+            ? mappedUsers.filter(user => status === 'Ativo' ? user.isActive : !user.isActive)
+            : mappedUsers;
+
+        return filteredUsers;
     }
+
 
 
 

@@ -10,5 +10,6 @@ export class QueryUsersDto {
   role?: string;
   sortBy?: 'name' | 'createAt'
   order?: 'asc' | 'desc'
+  status?: 'Ativo' | 'Ausente'
 
 }
