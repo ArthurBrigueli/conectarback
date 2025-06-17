@@ -2,29 +2,29 @@ Backend (Nest.js + MySQL)
 
 
 (LOGIN ADMIN)
-Email: admin@gmail.com
-Password: admin
+- Email: admin@gmail.com
+- Password: admin
 
 
 1. Certifique-se de que o MySQL está instalado e rodando em sua máquina:
-     https://www.mysql.com/products/community/
+     - https://www.mysql.com/products/community/
 
 2. Dentro do mysql crie o banco de dados conectar e conectar_test
 
-   create database conectar;
-   create database conectar_test;
+   - create database conectar;
+   - create database conectar_test;
 
 
 2. Clone o repositório:
-   git clone https://github.com/ArthurBrigueli/conectarback.git
+   - git clone https://github.com/ArthurBrigueli/conectarback.git
 
 
 3. Acesse a pasta do backend:
-   cd conectarback
+   - cd conectarback
 
 
 4. Instale as dependências:
-   npm install
+   - npm install
 
 
 5. Crie os arquivos de ambiente `.env` e `.env.test` na raiz do backend com o seguinte conteúdo:
@@ -54,7 +54,7 @@ Password: admin
 
 
 7. Iniciar a API em modo desenvolvimento:
-   npm run start:dev
+   - npm run start:dev
 
 
  Observações finais
