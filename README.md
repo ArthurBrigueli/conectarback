@@ -30,18 +30,18 @@ Password: admin
 5. Crie os arquivos de ambiente `.env` e `.env.test` na raiz do backend com o seguinte conteúdo:
 
    .env:
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_USER=seu_user
-   DB_PASS=sua_senha
-   DB_NAME=conectar
+        DB_HOST=localhost
+        DB_PORT=3306
+        DB_USER=seu_user
+        DB_PASS=sua_senha
+        DB_NAME=conectar
 
    .env.test:
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_USER=seu_user
-   DB_PASS=sua_senha
-   DB_NAME=conectar_test
+        DB_HOST=localhost
+        DB_PORT=3306
+        DB_USER=seu_user
+        DB_PASS=sua_senha
+        DB_NAME=conectar_test
 
 
 6. Rodar testes:
