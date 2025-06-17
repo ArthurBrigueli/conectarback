@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
@@ -46,7 +46,7 @@ export class UserController {
     @ApiResponse({ status: 200, description: 'Lista de usuários retornada com sucesso.' })
     @ApiBearerAuth()
     async findAll(@Query() query: QueryUsersDto) {
-    return await this.userService.findAllUser(query);
+        return await this.userService.findAllUser(query);
     }
 
 
@@ -79,6 +79,7 @@ export class UserController {
 
     @Roles('admin')
     @Delete("user/delete/:id")
+    @HttpCode(HttpStatus.ACCEPTED)
     @ApiOperation({ summary: 'Deletar um usuario' })
     @ApiResponse({ status: 201, description: 'Usuario deletado com sucesso' })
     @ApiResponse({ status: 400, description: 'Ocorreu um erro' })

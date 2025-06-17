@@ -1,4 +1,4 @@
-import { HttpCode, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpCode, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
@@ -20,7 +20,13 @@ export class UserService {
 
 
     async findByEmail(email: string): Promise<User | null> {
-        return this.userRepository.findOne({ where: { email } });
+        const user = await this.userRepository.findOne({ where: { email } });
+
+        if(!user){
+            throw new NotFoundException('Usuario nao encontrado')
+        }
+
+        return user
     }
 
 
@@ -101,14 +107,18 @@ export class UserService {
     }
 
 
-    async deleteUser(id:number){
-        if(!id){
-            throw new Error('Nenhum id fornecido')
+    async deleteUser(id: number): Promise<Partial<HttpStatus>> {
+        if (!id) {
+            return HttpStatus.BAD_REQUEST;
         }
 
+        const result = await this.userRepository.delete({ id });
 
-        await this.userRepository.delete({id})
+        if (result.affected === 0) {
+            throw new Error('Usuário não encontrado');
+        }
 
+        return HttpStatus.ACCEPTED;
     }
 
 
