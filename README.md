@@ -36,13 +36,13 @@ Backend (Nest.js + MySQL)
      Clique em SELECIONAR PROJETO, caso nao tenha voce pode criar na mesma opção
 
      Vá em acesso rapido e clique em APIs e serviços
-     Vá para credenciais
+          - Vá para credenciais
    
      Clique em "Criar credenciais" > "ID do cliente OAuth"
-     Escolha Aplicativo da Web
+          - Escolha Aplicativo da Web
 
      Origens JavaScript autorizadas
-        use a mesma URL que o frontend inicia: (exemplo) http://localhost:5173
+        - use a mesma URL que o frontend inicia: (exemplo) http://localhost:5173
    
      Em URIs de redirecionamento autorizados, adicione:
         - http://localhost:3000/auth/google/redirect
