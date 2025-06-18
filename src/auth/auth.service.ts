@@ -57,6 +57,17 @@ export class AuthService{
     }
 
 
+    async googleLogin(user: any) {
+        if (!user) return 'No user from Google';
+
+        const token = this.jwtService.sign({ email: user.email, name: user.name });
+        return {
+            token,
+            user,
+        };
+    }
+
+
 
 
 
