@@ -60,6 +60,7 @@ Backend (Nest.js + MySQL)
         DB_USER=seu_user
         DB_PASS=sua_senha
         DB_NAME=conectar
+        SECRET_TOKEN=DIGITE_UM_TOKEN
         GOOGLE_CLIENT_ID=ID_DO_CLIENTE
         GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
 
