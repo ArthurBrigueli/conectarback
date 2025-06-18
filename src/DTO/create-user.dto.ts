@@ -1,8 +1,8 @@
 import { Transform } from "class-transformer"
-import { IsEmail, IsNumber, isNumber, IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 import * as sanitizeHtml from 'sanitize-html';
 
-export class EditUserRegulardto{
+export class CreateUserDto{
 
     @IsString({message: 'Nome inválido'})
     @Transform(({ value }) => sanitizeHtml(value))
@@ -13,7 +13,4 @@ export class EditUserRegulardto{
 
     @IsString()
     password: string
-
-    @IsNumber()
-    id: number
 }

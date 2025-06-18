@@ -38,7 +38,7 @@ export class AuthController {
 
         if (!googleUser || !googleUser.email) {
             return res.redirect(
-            `http://localhost:5173/login?error=${encodeURIComponent('No user data from Google')}`,
+            `https://conectarfront.vercel.app/login?error=${encodeURIComponent('No user data from Google')}`,
             );
         }
 
@@ -58,7 +58,7 @@ export class AuthController {
         const loginResult = await this.authService.login(user);
 
         return res.redirect(
-            `http://localhost:5173/oauth-success?token=${loginResult.access_token}&user=${encodeURIComponent(
+            `https://conectarfront.vercel.app/oauth-success?token=${loginResult.access_token}&user=${encodeURIComponent(
                 JSON.stringify(loginResult.user),
             )}`,
         );

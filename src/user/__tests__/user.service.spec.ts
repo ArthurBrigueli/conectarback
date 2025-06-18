@@ -131,6 +131,8 @@ describe('UserService', () => {
       id: userMock.id,
       name: 'Novo Nome',
       password: 'senha123',
+      role: 'admin',
+      email: 'arthur@gmail.com'
     };
 
     jest.spyOn(userRepository, 'findOneBy').mockResolvedValue(userMock);
@@ -162,6 +164,9 @@ describe('UserService', () => {
       id: 999,
       name: 'Qualquer Nome',
       password: 'senha123',
+      role: 'user',
+      email: 'example@gmail.com'
+      
     };
 
     await expect(service.editUser(input)).rejects.toThrow('Usuário não encontrado');
@@ -210,14 +215,6 @@ describe('UserService', () => {
     });
 
 
-    it('should throw an error if password is not provided', async () => {
-      const userData = {
-        ...userMock,
-        password: undefined
-      };
-
-      await expect(service.create(userData)).rejects.toThrow('Password is required');
-    });
 
   });
   

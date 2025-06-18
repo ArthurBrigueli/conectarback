@@ -9,6 +9,9 @@ import { UserResponseDto } from '../DTO/user-response.dto';
 import { QueryUsersDto } from '../DTO/query-users.dto';
 import { EditUserRegulardto } from '../DTO/editUserRegular.dto';
 import { stat } from 'fs';
+import { EditUserAdmindto } from 'src/DTO/editUserAdmin.dto';
+import { CreateUserDto } from 'src/DTO/create-user.dto';
+import { CreateUserAdmindto } from 'src/DTO/create-user-admin.dto';
 
 @Injectable()
 export class UserService {
@@ -82,7 +85,7 @@ export class UserService {
 
 
 
-    async editUser(editUser: Partial<User> & { id: number }): Promise<Partial<User>> {
+    async editUser(editUser: EditUserAdmindto): Promise<Partial<EditUserAdmindto>> {
         const { id, password, ...updateData } = editUser;
 
         const user = await this.userRepository.findOneBy({ id });
@@ -105,7 +108,7 @@ export class UserService {
         return userWithoutPassword;
     }
 
-    async editUserRegular(editUser: Partial<EditUserRegulardto> & { id: number }): Promise<Partial<EditUserRegulardto>> {
+    async editUserRegular(editUser: EditUserRegulardto): Promise<Partial<EditUserRegulardto>> {
         const { id, password, ...updateData } = editUser;
 
         const user = await this.userRepository.findOneBy({ id });
@@ -144,9 +147,29 @@ export class UserService {
     }
 
 
+    async createAdmin(userData: CreateUserAdmindto) {
+        if (!userData.password) {
+            throw new Error('Password is required');
+        }
+
+        const hashedPassword = await this.hashService.hashPassword(userData.password);
+
+        const user = await this.userRepository.save({
+            ...userData,
+            password: hashedPassword,
+        });
+
+        const { password, ...userWithoutPassword } = user;
+
+        return {
+            STATUS_CODES: HttpStatus.CREATED,
+            message: "Criado com sucesso",
+            user: userWithoutPassword
+        };
+    }
 
 
-    async create(userData: Partial<User>) {
+    async create(userData: CreateUserDto) {
         if (!userData.password) {
             throw new Error('Password is required');
         }

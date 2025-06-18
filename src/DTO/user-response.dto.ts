@@ -14,5 +14,7 @@ export class UserResponseDto {
     @ApiProperty({example: 'admin or user'})
     role: string;
 
+
+    @ApiProperty({ example: null, nullable: true, description: 'Último login do usuário' })
     lastLogin: string | null;
 }
