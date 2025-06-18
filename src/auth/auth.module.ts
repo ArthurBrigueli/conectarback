@@ -15,7 +15,7 @@ import { GoogleStrategy } from "./google.strategy";
         forwardRef(() => UserModule),
         PassportModule,
         JwtModule.register({
-            secret: 'arthurbriguelitesteconectar',
+            secret: process.env.SECRET_TOKEN,
         }),
         TypeOrmModule.forFeature([User]),
     ],
