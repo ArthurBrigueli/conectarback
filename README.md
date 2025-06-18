@@ -55,21 +55,21 @@ Backend (Nest.js + MySQL)
 5. Crie os arquivos de ambiente `.env` e `.env.test` na raiz do backend com o seguinte conteúdo:
 
    - .env:
-        DB_HOST=localhost
-        DB_PORT=3306
-        DB_USER=seu_user
-        DB_PASS=sua_senha
-        DB_NAME=conectar
-        SECRET_TOKEN=DIGITE_UM_TOKEN
-        GOOGLE_CLIENT_ID=ID_DO_CLIENTE
-        GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
+        - DB_HOST=localhost
+        - DB_PORT=3306
+        - DB_USER=seu_user
+        - DB_PASS=sua_senha
+        - DB_NAME=conectar
+        - SECRET_TOKEN=DIGITE_UM_TOKEN
+        - GOOGLE_CLIENT_ID=ID_DO_CLIENTE
+        - GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
 
    - .env.test:
-        DB_HOST=localhost
-        DB_PORT=3306
-        DB_USER=seu_user
-        DB_PASS=sua_senha
-        DB_NAME=conectar_test
+        - DB_HOST=localhost
+        - DB_PORT=3306
+        - DB_USER=seu_user
+        - DB_PASS=sua_senha
+        - DB_NAME=conectar_test
 
 
 6. Rodar testes:
