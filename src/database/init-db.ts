@@ -13,7 +13,7 @@ export class AdminInitService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const admin = await this.userRepository.findOneBy({ email: 'admin@gmail.com' }); // MESMO EMAIL
+    const admin = await this.userRepository.findOneBy({ email: 'admin@gmail.com' });
         if (!admin) {
             const senhaHash = await bcrypt.hash('admin', 10);
             const newAdmin = this.userRepository.create({
