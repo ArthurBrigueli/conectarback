@@ -26,6 +26,31 @@ Backend (Nest.js + MySQL)
 4. Instale as dependências:
    - npm install
 
+5. Configuração de credenciais OAuth (Google) para configurar o .env
+
+     Para utilizar o login com Google, é necessário configurar suas credenciais:
+
+     Acesse o Google Cloud Console
+        - https://console.cloud.google.com/
+
+     Clique em SELECIONAR PROJETO, caso nao tenha voce pode criar na mesma opção
+
+     Vá em acesso rapido e clique em APIs e serviços
+     Vá para credenciais
+   
+     Clique em "Criar credenciais" > "ID do cliente OAuth"
+     Escolha Aplicativo da Web
+
+     Origens JavaScript autorizadas
+        use a mesma URL que o frontend inicia: (exemplo) http://localhost:5173
+   
+     Em URIs de redirecionamento autorizados, adicione:
+        - http://localhost:3000/auth/google/redirect
+   
+     Copie o Client ID e o Client Secret para usar no .env
+        - GOOGLE_CLIENT_ID=ID_DO_CLIENTE
+        - GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
+   
 
 5. Crie os arquivos de ambiente `.env` e `.env.test` na raiz do backend com o seguinte conteúdo:
 
@@ -35,6 +60,8 @@ Backend (Nest.js + MySQL)
         DB_USER=seu_user
         DB_PASS=sua_senha
         DB_NAME=conectar
+        GOOGLE_CLIENT_ID=ID_DO_CLIENTE
+        GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
 
    - .env.test:
         DB_HOST=localhost
