@@ -71,7 +71,12 @@ Backend (Nest.js + MySQL)
         - DB_PORT=3306
         - DB_USER=seu_user
         - DB_PASS=sua_senha
-        - DB_NAME=conectar_test
+        - DB_NAME=conectar
+        - SECRET_TOKEN=DIGITE_UM_TOKEN
+        - GOOGLE_CLIENT_ID=ID_DO_CLIENTE
+        - GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
+        - URL_FRONT= SUA URL LOCAL QUE O FRONTEND INICIA (EX: http://localhost:5173))
+        - URL_BACK= URL QUE LOCAL QUE O BACKEND INICIA (EX: http://localhost:3000))
 
 
 6. Rodar testes:
