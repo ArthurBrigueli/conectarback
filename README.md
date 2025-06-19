@@ -81,6 +81,7 @@ Backend (Nest.js + MySQL)
 
    - Testes de integração (end-to-end):
      npm run test:e2e
+     (Devido ao tempo e na entrega funcional da aplicação, os testes de integração não foram incluídos nesta versão. No entanto, estou estudando a implementação deles com ferramentas como Jest e Supertest, e posso incluí-los posteriormente.)
 
 
 7. Iniciar a API em modo desenvolvimento:
