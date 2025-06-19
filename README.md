@@ -45,7 +45,7 @@ Backend (Nest.js + MySQL)
         - use a mesma URL que o frontend inicia: (exemplo) http://localhost:5173
    
      Em URIs de redirecionamento autorizados, adicione:
-        - http://localhost:3000/auth/google/redirect
+        - http://localhost:3000/auth/google/redirect (url da api/auth/google/redirect)
    
      Copie o Client ID e o Client Secret para usar no .env
         - GOOGLE_CLIENT_ID=ID_DO_CLIENTE
