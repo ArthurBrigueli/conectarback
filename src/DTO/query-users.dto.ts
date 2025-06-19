@@ -28,7 +28,7 @@ export class QueryUsersDto {
   @ApiPropertyOptional({ example: 'Ativo', description: 'Status do usuário (Ativo ou Ausente)' })
   @IsOptional()
   @IsString()
-  @IsIn(['Ativo', 'Ausente'])
-  status?: 'Ativo' | 'Ausente'
+  @IsIn(['Ativo', 'Inativo'])
+  status?: 'Ativo' | 'Inativo'
 
 }
