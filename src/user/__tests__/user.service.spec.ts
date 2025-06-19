@@ -5,7 +5,7 @@ import { User } from '../user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { HashService } from '../../auth/hash.service';
 import { userMock } from '../__mocks__/user.mock';
-import { QueryUsersDto } from 'src/DTO/query-users.dto';
+import { QueryUsersDto } from '../../DTO/query-users.dto';
 import { HttpStatus } from '@nestjs/common';
 
 describe('UserService', () => {
@@ -91,6 +91,7 @@ describe('UserService', () => {
         name: userMock.name,
         email: userMock.email,
         role: userMock.role,
+        isActive: true,
         lastLogin: userMock.lastLogin
           ? `${userMock.lastLogin.toLocaleDateString('pt-BR')} às ${userMock.lastLogin.toLocaleTimeString('pt-BR', {
               hour: '2-digit',

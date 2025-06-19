@@ -9,9 +9,9 @@ import { UserResponseDto } from '../DTO/user-response.dto';
 import { QueryUsersDto } from '../DTO/query-users.dto';
 import { EditUserRegulardto } from '../DTO/editUserRegular.dto';
 import { stat } from 'fs';
-import { EditUserAdmindto } from 'src/DTO/editUserAdmin.dto';
-import { CreateUserDto } from 'src/DTO/create-user.dto';
-import { CreateUserAdmindto } from 'src/DTO/create-user-admin.dto';
+import { EditUserAdmindto } from '../DTO/editUserAdmin.dto';
+import { CreateUserDto } from '../DTO/create-user.dto';
+import { CreateUserAdmindto } from '../DTO/create-user-admin.dto';
 
 @Injectable()
 export class UserService {

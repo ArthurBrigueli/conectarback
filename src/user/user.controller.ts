@@ -8,9 +8,9 @@ import { Public } from '../auth/decorators/public.decorator';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { QueryUsersDto } from '../DTO/query-users.dto';
 import { EditUserRegulardto } from '../DTO/editUserRegular.dto';
-import { EditUserAdmindto } from 'src/DTO/editUserAdmin.dto';
-import { CreateUserDto } from 'src/DTO/create-user.dto';
-import { CreateUserAdmindto } from 'src/DTO/create-user-admin.dto';
+import { EditUserAdmindto } from '../DTO/editUserAdmin.dto';
+import { CreateUserDto } from '../DTO/create-user.dto';
+import { CreateUserAdmindto } from '../DTO/create-user-admin.dto';
 
 
 @ApiTags("Usuarios")
