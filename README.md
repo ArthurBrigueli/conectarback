@@ -63,6 +63,8 @@ Backend (Nest.js + MySQL)
         - SECRET_TOKEN=DIGITE_UM_TOKEN
         - GOOGLE_CLIENT_ID=ID_DO_CLIENTE
         - GOOGLE_CLIENT_SECRET=CHAVE_SECRETA_DO_CLIENTE
+        - URL_FRONT= SUA URL LOCAL QUE O FRONTEND INICIA (EX: http://localhost:5173))
+        - URL_BACK= URL QUE LOCAL QUE O BACKEND INICIA (EX: http://localhost:3000))
 
    - .env.test:
         - DB_HOST=localhost
