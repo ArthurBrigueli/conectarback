@@ -22,6 +22,7 @@ export class AuthController {
         private readonly userRepository: Repository<User>
     ){}
     
+    
 
     @Get('google')
     @UseGuards(AuthGuard('google'))
@@ -36,9 +37,11 @@ export class AuthController {
         
         const googleUser = req.user;
 
+        const url_front = process.env.URL_FRONT
+
         if (!googleUser || !googleUser.email) {
             return res.redirect(
-            `https://conectarfront.vercel.app/login?error=${encodeURIComponent('No user data from Google')}`,
+            `${url_front}/login?error=${encodeURIComponent('No user data from Google')}`,
             );
         }
 
@@ -58,7 +61,7 @@ export class AuthController {
         const loginResult = await this.authService.login(user);
 
         return res.redirect(
-            `https://conectarfront.vercel.app/oauth-success?token=${loginResult.access_token}&user=${encodeURIComponent(
+            `${url_front}/oauth-success?token=${loginResult.access_token}&user=${encodeURIComponent(
                 JSON.stringify(loginResult.user),
             )}`,
         );
