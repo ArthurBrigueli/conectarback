@@ -1,7 +1,7 @@
 Backend (Nest.js + MySQL)
 
 
-(LOGIN ADMIN)
+(LOGIN ADMIN USADO PARA TESTE LOCAL E PARA O SITE EM PRODUÇÃO)
 - Email: admin@gmail.com
 - Password: admin
 
